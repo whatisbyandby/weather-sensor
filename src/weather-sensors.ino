@@ -1,41 +1,3 @@
-/******************************************************************************
-  SparkFun Photon Weather Shield basic example
-  Joel Bartlett @ SparkFun Electronics
-  Original Creation Date: May 18, 2015
-  Updated August 21, 2015
-  This sketch prints the temperature, humidity, and barometric pressure OR
-  altitude to the Serial port.
-
-  The library used in this example can be found here:
-  https://github.com/sparkfun/SparkFun_Photon_Weather_Shield_Particle_Library
-
-  Hardware Connections:
-	This sketch was written specifically for the Photon Weather Shield,
-	which connects the HTU21D and MPL3115A2 to the I2C bus by default.
-  If you have an HTU21D and/or an MPL3115A2 breakout,	use the following
-  hardware setup:
-      HTU21D ------------- Photon
-      (-) ------------------- GND
-      (+) ------------------- 3.3V (VCC)
-       CL ------------------- D1/SCL
-       DA ------------------- D0/SDA
-
-    MPL3115A2 ------------- Photon
-      GND ------------------- GND
-      VCC ------------------- 3.3V (VCC)
-      SCL ------------------ D1/SCL
-      SDA ------------------ D0/SDA
-
-  Development environment specifics:
-  	IDE: Particle Dev
-  	Hardware Platform: Particle Photon
-                       Particle Core
-
-  This code is beerware; if you see me (or any other SparkFun
-  employee) at the local, and you've found our code helpful,
-  please buy us a round!
-  Distributed as-is; no warranty is given.
-*******************************************************************************/
 #include "SparkFun_Photon_Weather_Shield_Library.h"
 #include <string>
 
@@ -182,7 +144,7 @@ void send_data(char *buf)
 {
 
   TCPClient client;
-  byte server[] = {192, 168, 1, 49};
+  byte server[] = {192, 168, 2, 40};
 
   String receivedData;
 
@@ -192,7 +154,7 @@ void send_data(char *buf)
     sprintf(content_length, "Content-Length: %d", strlen(buf));
     Serial.print("connected");
     client.println("POST /weather HTTP/1.1");
-    client.println("Host: 192.168.1.49:3001");
+    client.println("Host: 192.168.2.40:3001");
     client.println("Content-Type: application/json");
     client.println(content_length);
     client.println();

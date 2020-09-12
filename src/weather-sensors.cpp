@@ -194,7 +194,7 @@ void send_data(char *buf)
 {
 
   TCPClient client;
-  byte server[] = {192, 168, 1, 49};
+  byte server[] = {192, 168, 2, 40};
 
   String receivedData;
 
@@ -204,7 +204,7 @@ void send_data(char *buf)
     sprintf(content_length, "Content-Length: %d", strlen(buf));
     Serial.print("connected");
     client.println("POST /weather HTTP/1.1");
-    client.println("Host: 192.168.1.49:3001");
+    client.println("Host: 192.168.2.40:3001");
     client.println("Content-Type: application/json");
     client.println(content_length);
     client.println();
