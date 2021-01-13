@@ -48,10 +48,17 @@ void loop()
 {
   delay(5000);
   Log.info(String(currentWindSpeed));
+  char buf[1024];
+  JSONBufferWriter writer(buf, sizeof(buf));
+  writer.beginObject();
+  writer.name("windSpeed").value(currentWindSpeed);
+  writer.endObject();
+
   if (client.isConnected())
   {
+    Log.info(buf);
     Log.info("Sending weather data");
-    client.publish("weather-station", "New Weather Reading");
+    client.publish("weather-station", buf);
   }
   client.loop();
 }
