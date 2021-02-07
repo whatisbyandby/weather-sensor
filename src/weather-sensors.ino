@@ -70,6 +70,7 @@ void loop()
   pascals = sensor.readPressure();
   float hpa = pascals / 100;
   int wind_direction = get_wind_direction();
+  Log.info(String(wind_direction));
 
   memset(buf, 0, sizeof(buf));
   JSONBufferWriter writer(buf, sizeof(buf) - 1);
@@ -87,8 +88,12 @@ void loop()
   {
     client.publish("weather-station", buf);
   }
+  else
+  {
+    client.connect("weather-station");
+  }
   client.loop();
-  delay(5000);
+  delay(1000);
 }
 
 void calculate_windspeed()
@@ -130,6 +135,7 @@ int get_wind_direction()
   unsigned int adc;
 
   adc = analogRead(WIND_DIR_PIN); // get the current reading from the sensor
+  Log.info(String(adc));
 
   // The following table is ADC readings for the wind direction sensor output, sorted from low to high.
   // Each threshold is the midpoint between adjacent headings. The output is degrees for that ADC reading.
@@ -145,7 +151,7 @@ int get_wind_direction()
     return (158);
   if (adc < 1940)
     return (135);
-  if (adc < 2100)
+  if (adc < 2200)
     return (203);
   if (adc < 2300)
     return (180);
